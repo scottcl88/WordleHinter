@@ -61,6 +61,8 @@ def main():
     user.get_more_help()
     print("\n")
     user.get_exact_word()
+    print("\nDone! Press enter to exit...")
+    input()
 
 
 if __name__ == "__main__":
