@@ -4,7 +4,7 @@ from logic import Logic
 from main import User
 
 
-class TestSum(unittest.TestCase):
+class Test(unittest.TestCase):
 
     def test_load(self):
         logic = Logic()
@@ -17,7 +17,7 @@ class TestSum(unittest.TestCase):
         with patch('builtins.input', return_value='abcde') as mock_input:
             user.get_letters()
         mock_input.assert_called_once()
-        self.assertNotEqual(user.known_word, "abcde", "Should have a known word")
+        self.assertEqual(user.known_word, "abcde", "Should have a known word")
         self.assertEqual(len(user.known_word), 5, "Should have 5 characters")
 
     def test_get_known_letters(self):
@@ -28,7 +28,7 @@ class TestSum(unittest.TestCase):
             'xyz',
         ]
         with patch('builtins.input', side_effect=user_input):
-            user.get_known_letters()
+            user.get_correct_letters()
         self.assertEqual(user.known_correct_letters, "abcde",
                          "Should have known correct letters")
         self.assertEqual(user.known_wrong_letters, "xyz",

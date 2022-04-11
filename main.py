@@ -25,11 +25,28 @@ class User:
             if count != 5:
                 print("You must enter 5 characters")
 
-    def get_known_letters(self):
-        print("Enter any other letters that you know ARE in the word but in the wrong place:")
-        self.known_correct_letters = input().lower()
-        print("Enter any letters that you know are NOT in the word:")
-        self.known_wrong_letters = input().lower()
+    def get_correct_letters(self):
+        valid: bool = True
+        while valid:
+            print("Enter any other letters that you know ARE in the word but in the wrong place:")
+            self.known_correct_letters = input().lower()
+            if self.logic.do_letters_exist(self.known_correct_letters, self.known_word):
+                print("Error: You entered letters that are part of the known word. Try again.")
+            else:
+                valid = False
+
+    def get_wrong_letters(self):
+        valid: bool = True
+        while valid:
+            print("Enter any letters that you know are NOT in the word:")
+            self.known_wrong_letters = input().lower()
+            if self.logic.do_letters_exist(self.known_wrong_letters, self.known_word):
+                print("Error: You entered letters that are part of the known word. Try again.")
+                continue
+            if self.logic.do_letters_exist(self.known_wrong_letters, self.known_correct_letters):
+                print("Error: You entered letters that are part of the correct letters. Try again.")
+            else:
+                valid = False
 
     def get_more_help(self):
         print("Need more help? Show synonyms of correct word only?")
@@ -54,7 +71,8 @@ def main():
     print("\n")
     user = User(logic)
     user.get_letters()
-    user.get_known_letters()
+    user.get_correct_letters()
+    user.get_wrong_letters()
     print("\nChecking...\n\n")
     logic.check(user.known_word, user.known_correct_letters, user.known_wrong_letters)
     print("\n")

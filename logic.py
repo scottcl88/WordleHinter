@@ -45,13 +45,19 @@ class Logic:
         firstday = datetime.date(2021, 6, 19)  # first day of wordle
         diff = today - firstday
         return self.word_list[diff.days]
+    
+    def do_letters_exist(self, letters_to_check: str, letters_in_str: str):
+        if letters_to_check == "" or letters_in_str == "":
+            return False
+        else:
+            return re.search("([" + letters_to_check + "])+", letters_in_str)
 
     def check(self, guess: str, known_correct_letters: str, known_wrong_letters: str):
         r = re.compile(guess)
         cur_possible_words = list(filter(r.match, self.word_list))
         new_possible_words: list[str] = []
         for w in cur_possible_words:
-            if re.search("([" + known_correct_letters + "])+", w) and not re.search("([" + known_wrong_letters + "])+", w):
+            if (known_correct_letters == "" or re.search("([" + known_correct_letters + "])+", w)) and (known_wrong_letters == "" or not re.search("([" + known_wrong_letters + "])+", w)):
                 new_possible_words.append(w)
         self.possible_words = new_possible_words
         print("Possible words remaining: ", len(self.possible_words))
