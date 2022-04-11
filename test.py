@@ -17,7 +17,7 @@ class TestSum(unittest.TestCase):
         with patch('builtins.input', return_value='abcde') as mock_input:
             user.get_letters()
         mock_input.assert_called_once()
-        self.assertEqual(user.known_word, "abcde", "Should have a known word")
+        self.assertNotEqual(user.known_word, "abcde", "Should have a known word")
         self.assertEqual(len(user.known_word), 5, "Should have 5 characters")
 
     def test_get_known_letters(self):
