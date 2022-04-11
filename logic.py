@@ -45,7 +45,7 @@ class Logic:
         firstday = datetime.date(2021, 6, 19)  # first day of wordle
         diff = today - firstday
         return self.word_list[diff.days]
-    
+
     def do_letters_exist(self, letters_to_check: str, letters_in_str: str):
         if letters_to_check == "" or letters_in_str == "":
             return False
