@@ -29,6 +29,7 @@ class Test(unittest.TestCase):
         ]
         with patch('builtins.input', side_effect=user_input):
             user.get_correct_letters()
+            user.get_wrong_letters()
         self.assertEqual(user.known_correct_letters, "abcde",
                          "Should have known correct letters")
         self.assertEqual(user.known_wrong_letters, "xyz",
