@@ -14,21 +14,26 @@ class Logic:
         self.master = self
 
     def get_synonyms(self, word):
+        api_key = open("api_key.txt", 'r').read()
         conn = http.client.HTTPSConnection("wordsapiv1.p.rapidapi.com")
         headers = {
             'X-RapidAPI-Host': "wordsapiv1.p.rapidapi.com",
-            'X-RapidAPI-Key': "0fdf58d79cmshe4a721e7dc6a96fp18ce0cjsna339775e39bf"
+            'X-RapidAPI-Key': api_key
         }
-        conn.request("GET", "/words/"+word+"/typeOf", headers=headers)
+        conn.request("GET", "/words/"+word+"/synonyms", headers=headers)
         res = conn.getresponse()
         data = res.read()
         # print(data.decode("utf-8"))#prints results
         json_object = json.loads(data)
-        all_syn = json_object["typeOf"]
-        if len(all_syn) > 0:
-            return random.sample(all_syn, 2 if len(all_syn) >= 2 else 1)
+        all_syn = json_object["synonyms"]
+        visible_syn = []
+        for w in all_syn:
+            if not re.search(word, w):
+                visible_syn.append(w)
+        if len(visible_syn) > 0:
+            return random.sample(visible_syn, 2 if len(visible_syn) >= 2 else 1)
         else:
-            return all_syn
+            return visible_syn
 
     def load(self):
         print("Loading...")
