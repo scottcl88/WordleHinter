@@ -3,6 +3,7 @@ from unittest.mock import patch
 from logic import Logic
 from main import User
 
+
 class TestSum(unittest.TestCase):
 
     def test_load(self):
@@ -26,10 +27,13 @@ class TestSum(unittest.TestCase):
             'abcde',
             'xyz',
         ]
-        with patch('builtins.input', side_effect=user_input) as mock_input:
+        with patch('builtins.input', side_effect=user_input):
             user.get_known_letters()
-        self.assertEqual(user.known_correct_letters, "abcde", "Should have known correct letters")
-        self.assertEqual(user.known_wrong_letters, "xyz", "Should have known wrong letters")
+        self.assertEqual(user.known_correct_letters, "abcde",
+                         "Should have known correct letters")
+        self.assertEqual(user.known_wrong_letters, "xyz",
+                         "Should have known wrong letters")
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,9 +1,9 @@
 import json
 import http.client
-from posixpath import split
 import random
 import re
 import datetime
+
 
 class Logic:
     word_list = []
@@ -20,7 +20,7 @@ class Logic:
             'X-RapidAPI-Host': "wordsapiv1.p.rapidapi.com",
             'X-RapidAPI-Key': api_key
         }
-        conn.request("GET", "/words/"+word+"/synonyms", headers=headers)
+        conn.request("GET", "/words/" + word + "/synonyms", headers=headers)
         res = conn.getresponse()
         data = res.read()
         # print(data.decode("utf-8"))#prints results
@@ -51,7 +51,7 @@ class Logic:
         cur_possible_words = list(filter(r.match, self.word_list))
         new_possible_words: list[str] = []
         for w in cur_possible_words:
-            if re.search("(["+known_correct_letters+"])+", w) and not re.search("(["+known_wrong_letters+"])+", w):
+            if re.search("([" + known_correct_letters + "])+", w) and not re.search("([" + known_wrong_letters + "])+", w):
                 new_possible_words.append(w)
         self.possible_words = new_possible_words
         print("Possible words remaining: ", len(self.possible_words))

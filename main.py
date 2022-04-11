@@ -1,4 +1,3 @@
-from typing import final
 from logic import Logic
 
 
@@ -20,7 +19,7 @@ class User:
         count: int = 0
         while count != 5:
             print("Enter the 5 letters you know with the correct place, otherwise add '*' in that place:")
-            self.known_word = input().lower()        
+            self.known_word = input().lower()
             self.known_word = self.known_word.replace("*", ".")
             count = len(self.known_word)
             if count != 5:
@@ -47,6 +46,7 @@ class User:
         if find_exact_word == "1":
             exact_word = self.logic.get_exact_word()
             print("\nAnswer is: ", exact_word)
+
 
 def main():
     logic = Logic()
